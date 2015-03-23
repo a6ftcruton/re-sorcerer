@@ -1,47 +1,42 @@
 require 'rails_helper'
 
-describe 'user' do
+describe 'user signup' do
 
-  context 'not logged in' do
-
-    it 'visits the homepage' do
-      visit_root_page
-      expect(page).to have_css '.login-link'
-    end
-
-    it 'visits the login page via the homepage' do
-      visit_login_page
-      expect(current_path).to eq login_path
-      expect(page).to have_css '#login'
-    end
-
-    it 'creates a new account' do
-      visit_login_page
-      fill_in(:email).with("jbones@example.com")
-    end
-
-    xit 'logs in with valid credentials' do
-    end
-
-    xit 'logs in with invalid credentials' do
-    end
-
-    xit 'clicks a link' do
-    end
-
+  before do
+    visit_signup_page
   end
 
-  context 'logged in' do
+  it 'valid credentials' do
+    fill_in("Email", with: "jbones@example.com")
+    fill_in("Username", with: "jbnz")
+    fill_in("Password", with: "password123")
+    fill_in("Password confirmation", with: "password123")
+    click_on("Sign Up")
+
+    expect(current_path).to eq root_path
+    expect(page).to have_content "Account created successfully"
+  end
+
+  it 'with username that is already in use' do
+    # fill_in("Email", with: "jbones@example.com")
+    # fill_in("Username", with: "jbnz")
+    # fill_in("Password", with: "password123")
+    # fill_in("Password confirmation", with: "password123")
+    # click_on("Sign Up")
+  end
+
+  it 'with password confirmation that does not match password' do
   end
 
   private
 
-  def visit_root_page
-    visit '/'
+  def visit_signup_page
+    visit_root
+    page.find(".signup-link").click
+    expect(current_path).to eq signup_path
   end
-  
-  def visit_login_page
-    visit_root_page
-    page.find('.login-link').click
+
+  def visit_root
+    visit '/'
   end
 end
