@@ -1,5 +1,7 @@
 require 'rails_helper'
 
+puts "running SIGNUP spec"
+
 describe 'user signup' do
 
   before do

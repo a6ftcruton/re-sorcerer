@@ -1,2 +1,6 @@
-<%= link_to "Login", login_path, class: "login-link" %>
-<%= link_to "Signup", new_user_path, class: "signup-link" %>
+<% if current_user %>
+  <%= link_to "Logout", logout_path, class: "logout-link" %>
+<% else %>
+  <%= link_to "Login", login_path, class: "login-link" %>
+  <%= link_to "Signup", new_user_path, class: "signup-link" %>
+<% end %>

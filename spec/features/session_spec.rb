@@ -1,47 +1,78 @@
 require 'rails_helper'
 
-describe 'user' do
+puts "running SESSION spec"
 
-  context 'not logged in' do
+describe 'user login' do
 
-    it 'visits the homepage' do
-      visit_root_page
-      expect(page).to have_css '.login-link'
+  it 'visits login page from site root' do
+    visit_login_page
+
+    expect(current_path).to eq login_path
+  end
+
+  before do
+    visit_login_page
+  end
+
+  context 'valid credentials' do
+    it 'username and password' do
+      user = create(:user)
+
+      fill_in("Email", with: user.email)
+      fill_in("Password", with: user.password)
+      click_on("Sign In")
+
+      expect(current_path).to eq root_path
+      expect(page).to have_content "Login successful"
+      expect(page).to_not have_css '.login-link'
     end
 
-    it 'visits the login page via the homepage' do
-      visit_login_page
+  end
+
+  context 'invalid credentials' do
+    it 'wrong password' do
+      user = create(:user, password: "abc123")
+
+      fill_in("Email", with: user.email)
+      fill_in("Password", with: "x")
+      click_on("Sign In")
+
       expect(current_path).to eq login_path
-      expect(page).to have_css '#login'
+      expect(page).to have_content "Check your email and password. No user on file with the credentials you supplied."
     end
 
-    it 'creates a new account' do
-      visit_login_page
-      # fill_in(:email).with("jbones@example.com")
-    end
+    it 'blank username field' do
+      fill_in("Password", with: "x")
+      click_on("Sign In")
 
-    xit 'logs in with valid credentials' do
+      expect(current_path).to eq login_path
     end
-
-    xit 'logs in with invalid credentials' do
-    end
-
-    xit 'clicks a link' do
-    end
-
   end
+end
 
-  context 'logged in' do
+describe 'user logout' do
+  it 'clicks logout link' do
+    login
+    click_on "Logout"
+    
+    expect(current_path).to eq root_path
+    expect(page).to have_content "You are now logged out"
+    expect(page).to_not have_css '.logout-link'
   end
+end
 
   private
 
-    def visit_root_page
-      visit '/'
-    end
-    
     def visit_login_page
-      visit_root_page
-      page.find('.login-link').click
+      visit root_path
+      click_on("Login")
     end
-end
+
+    def login
+      visit_login_page
+      user = create(:user)
+      fill_in("Email", with: user.email)
+      fill_in("Password", with: user.password)
+      click_on("Sign In")
+    end
+
