@@ -10,7 +10,7 @@ class SessionController < ApplicationController
       session[:user_id] = user.id
       redirect_to root_path, notice: "Login successful"
     else
-      flash.now.alert = "Invalid email or password"
+      flash.now[:notice] = "Check your email and password. No user on file with the credentials you supplied."
       render :new
     end
   end

@@ -36,12 +36,12 @@ describe 'user' do
 
   private
 
-  def visit_root_page
-    visit '/'
-  end
-  
-  def visit_login_page
-    visit_root_page
-    page.find('.login-link').click
-  end
+    def visit_root_page
+      visit '/'
+    end
+    
+    def visit_login_page
+      visit_root_page
+      page.find('.login-link').click
+    end
 end

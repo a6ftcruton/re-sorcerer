@@ -36,21 +36,21 @@ describe 'user signup' do
 
   private
 
-  def visit_signup_page
-    visit_root
-    page.find(".signup-link").click
-    expect(current_path).to eq new_user_path
-  end
+    def visit_signup_page
+      visit_root
+      page.find(".signup-link").click
+      expect(current_path).to eq new_user_path
+    end
 
-  def visit_root
-    visit '/'
-  end
+    def visit_root
+      visit '/'
+    end
 
-  def create_account
-    fill_in("Email", with: "jbones@example.com")
-    fill_in("Username", with: "jbnz")
-    fill_in("Password", with: "password123")
-    fill_in("Password confirmation", with: "password123")
-    click_on("Sign Up")
-  end
+    def create_account
+      fill_in("Email", with: "jbones@example.com")
+      fill_in("Username", with: "jbnz")
+      fill_in("Password", with: "password123")
+      fill_in("Password confirmation", with: "password123")
+      click_on("Sign Up")
+    end
 end
