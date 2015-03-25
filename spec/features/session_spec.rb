@@ -52,7 +52,7 @@ end
 
 describe 'user logout' do
   it 'clicks logout link' do
-    login
+    authenticate_and_login_user
     click_on "Logout"
     
     expect(current_path).to eq root_path
@@ -67,12 +67,3 @@ end
       visit root_path
       click_on("Login")
     end
-
-    def login
-      visit_login_page
-      user = create(:user)
-      fill_in("Email", with: user.email)
-      fill_in("Password", with: user.password)
-      click_on("Sign In")
-    end
-
