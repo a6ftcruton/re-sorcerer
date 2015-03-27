@@ -33,15 +33,26 @@ describe 'posts' do
       expect(link[:target]).to eq "_blank" 
     end
 
-    it 'can share a post' do
-      # click_on("Share a link")
+    it 'can view a form for sharing a new post' do
       page.find(".new-post-link").click
+
       expect(current_path).to eq new_post_path
+      expect(page).to have_css('.new-post')
+      expect(page).to have_css('#post_title')
     end
-      # I see a link to "share a link"
-      # when I click on the link
-      # I see a form that asks for:
-      #   link, title, image(optional
+
+    it 'can enter title and link for a new post' do
+      added_content = "I just added this post"
+
+      visit new_post_path
+      fill_in("Title", with: added_content)
+      fill_in("Link", with: "http://validsite.com")
+      click_on("Share it")
+
+      expect(current_path).to eq root_path 
+      expect(page).to have_content added_content
+    end
+
       
       #viewing individual post
       #voting up
