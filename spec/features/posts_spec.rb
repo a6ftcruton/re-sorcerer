@@ -54,10 +54,19 @@ describe 'posts' do
     end
 
       
-      #viewing individual post
-      #voting up
+    describe 'voting' do
+      it 'can upvote a post' do
+        post = create(:post, title: "voteworthy")
+
+        visit root_path
+
+        expect(page).to have_content("voteworthy")
+        expect(page).to have_css('.votes')
+      end
+
       #voting down
-        
+      #add ajax so that page doesn't require reload for voting
+    end   
       # filtering posts by 
         # newest
         # most popular
