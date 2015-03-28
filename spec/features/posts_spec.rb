@@ -11,7 +11,6 @@ describe 'posts' do
 
   context 'authenticated user' do
     before do
-      create(:post)
       authenticate_and_login_user
     end
 
@@ -60,12 +59,16 @@ describe 'posts' do
 
         visit root_path
 
-        expect(page).to have_content("voteworthy")
+        expect(post.votes).to eq 0 # votes defaults to 0 
         expect(page).to have_css('.votes')
+
+        click_on('^')
+        expect(Post.find(post.id).votes).to eq 1
       end
 
       #voting down
       #add ajax so that page doesn't require reload for voting
+      # a given user can only upvote/downvote a post once
     end   
       # filtering posts by 
         # newest

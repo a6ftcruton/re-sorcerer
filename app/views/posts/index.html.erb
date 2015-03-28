@@ -9,9 +9,11 @@
 <% @posts.each do |post| %>
   <div class="post-container">
     <div class="votes">
-      <%= form_tag post_path(post), method: :patch, class: "upvote" do %>
-        <% hidden_field_tag, :votes %>
-      <%= submit_tag "^" %>
+      <%= post.votes %>
+      <%= form_tag upvote_post_path(post), method: :upvote do %>
+        <% hidden_field_tag :votes, post.votes %> 
+      <%= submit_tag "^", class: "upvote" %>
+    <% end %>
     </div>
     <%= link_to post.title, post.url, target: "_blank", class: "post" %>
   </div>

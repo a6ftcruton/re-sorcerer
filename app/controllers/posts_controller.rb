@@ -18,6 +18,18 @@ class PostsController < ApplicationController
     end
   end
 
+  def update
+    post = Post.find(params[:id])
+    post.update_attribute(params[:votes], (post.votes += 1))
+      # redirect_to root_path
+  end
+
+  def upvote
+    post = Post.find(params[:id])
+    post.upvote
+    redirect_to root_path # change this to an ajax call
+  end
+
   private
 
     def post_params

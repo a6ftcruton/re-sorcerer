@@ -8,6 +8,11 @@ Rails.application.routes.draw do
 
   get 'signup', to: 'users#new', as: 'signup'
   resources :users
-  resources :posts
+
+  resources :posts do 
+    member do
+      post 'upvote'
+    end
+  end
 
 end
