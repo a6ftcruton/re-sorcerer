@@ -19,15 +19,17 @@ class PostsController < ApplicationController
   end
 
   def update
-    post = Post.find(params[:id])
-    post.update_attribute(params[:votes], (post.votes += 1))
       # redirect_to root_path
   end
 
   def upvote
-    post = Post.find(params[:id])
-    post.upvote
-    redirect_to root_path # change this to an ajax call
+    @post = Post.find(params[:id])
+    @post.upvote
+    respond_to do |format|
+      format.html { redirect_to @post } 
+      format.js # render posts/upvote.js.erb
+    end
+    # redirect_to root_path # change this to an ajax call
   end
 
   def downvote

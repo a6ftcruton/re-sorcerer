@@ -6,22 +6,7 @@
   <%= link_to "Signup", new_user_path, class: "signup-link" %>
 <% end %>
 
-<% rank = 0 %>
-<% @posts.each do |post| %>
-  <div class="post-container">
-    <div class="votes">
-      <p class="rank"><%= "Rank: #{rank+=1}" %></p>
-      <p class="votes"><%= "Votes: #{post.votes}" %></p>
-      <%= form_tag upvote_post_path(post), method: :upvote do %>
-        <% hidden_field_tag :votes, post.votes %> 
-      <%= submit_tag "^", class: "upvote" %>
-      <% end %>
-
-      <%= form_tag downvote_post_path(post), method: :downvote do %>
-        <% hidden_field_tag :votes, post.votes %> 
-      <%= submit_tag "v", class: "downvote" %>
-      <% end %>
-    </div>
-    <%= link_to post.title, post.url, target: "_blank", class: "post" %>
-  </div>
-<% end %>
+<section class="all-posts">
+  <% @rank = 0 %>
+  <%= render @posts %>
+</section>
