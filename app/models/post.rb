@@ -10,4 +10,8 @@ class Post < ActiveRecord::Base
     self.votes += 1
     self.save(validate: false)
   end
+
+  def self.sort_by_rank
+    all.sort { |a, b| b.votes <=> a.votes }
+  end
 end

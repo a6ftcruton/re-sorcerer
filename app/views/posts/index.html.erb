@@ -6,10 +6,12 @@
   <%= link_to "Signup", new_user_path, class: "signup-link" %>
 <% end %>
 
+<% rank = 0 %>
 <% @posts.each do |post| %>
   <div class="post-container">
     <div class="votes">
-      <%= post.votes %>
+      <p class="rank"><%= "Rank: #{rank+=1}" %></p>
+      <p class="votes"><%= "Votes: #{post.votes}" %></p>
       <%= form_tag upvote_post_path(post), method: :upvote do %>
         <% hidden_field_tag :votes, post.votes %> 
       <%= submit_tag "^", class: "upvote" %>

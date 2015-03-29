@@ -66,6 +66,19 @@ describe 'posts' do
         expect(Post.find(post.id).votes).to eq 1
       end
 
+      it 'displays posts sorted by popularity' do
+        unpopular = create(:post, title: "last")
+        popular = create(:post, title: "first")
+
+        visit root_path
+        page.all('.post-container a', :text => popular.title) do #popular.title
+           click_on('.upvote')
+        end
+        visit root_path
+        expect(first('.post-container a')).to have_content "last"
+        expect(first('.rank')).to have_content "1"
+      end
+      
       #voting down
       #add ajax so that page doesn't require reload for voting
       # a given user can only upvote/downvote a post once
