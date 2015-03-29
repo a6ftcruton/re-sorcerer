@@ -11,6 +11,11 @@ class Post < ActiveRecord::Base
     self.save(validate: false)
   end
 
+  def downvote
+    self.votes -= 1
+    self.save(validate: false)
+  end
+
   def self.sort_by_rank
     all.sort { |a, b| b.votes <=> a.votes }
   end

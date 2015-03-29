@@ -30,6 +30,12 @@ class PostsController < ApplicationController
     redirect_to root_path # change this to an ajax call
   end
 
+  def downvote
+    post = Post.find(params[:id])
+    post.downvote
+    redirect_to root_path
+  end
+
   private
 
     def post_params

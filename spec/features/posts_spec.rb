@@ -52,37 +52,49 @@ describe 'posts' do
       expect(page).to have_content added_content
     end
 
-      
     describe 'voting' do
+
       it 'can upvote a post' do
         post = create(:post, title: "voteworthy")
 
         visit root_path
 
-        expect(post.votes).to eq 0 # votes defaults to 0 
+        expect(post.votes).to eq 0
         expect(page).to have_css('.votes')
 
         click_on('^')
         expect(Post.find(post.id).votes).to eq 1
       end
 
+      it 'can downvote a post' do
+        post = create(:post, title: "dumb post")
+
+        visit root_path
+
+        expect(post.votes).to eq 0
+        expect(page).to have_css('.votes')
+
+        click_on('v')
+        expect(Post.find(post.id).votes).to eq -1
+      end
+      
+      #add ajax so that page doesn't require reload for voting
+      # a given user can only upvote/downvote a post once
+    end   
+
+    describe 'ranking' do
       it 'displays posts sorted by popularity' do
         unpopular = create(:post, title: "last")
         popular = create(:post, title: "first")
 
         visit root_path
-        page.all('.post-container a', :text => popular.title) do #popular.title
-           click_on('.upvote')
-        end
+        page.all('.post-container a', :text => popular.title) { click_on('.upvote') }
         visit root_path
         expect(first('.post-container a')).to have_content "last"
         expect(first('.rank')).to have_content "1"
       end
-      
-      #voting down
-      #add ajax so that page doesn't require reload for voting
-      # a given user can only upvote/downvote a post once
-    end   
+    end
+
       # filtering posts by 
         # newest
         # most popular
@@ -90,8 +102,3 @@ describe 'posts' do
         # comments *
   end
 end
-
-  private
-
-  def login
-  end
