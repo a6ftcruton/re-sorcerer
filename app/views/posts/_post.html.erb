@@ -6,7 +6,7 @@
       <%= submit_tag "^", class: "upvote" %>
       <% end %>
 
-      <%= form_tag downvote_post_path(post), method: :downvote do %>
+      <%= form_tag downvote_post_path(post), method: :downvote, remote: true do %>
         <% hidden_field_tag :votes, post.votes %> 
       <%= submit_tag "v", class: "downvote" %>
       <% end %>

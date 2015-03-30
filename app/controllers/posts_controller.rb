@@ -29,13 +29,15 @@ class PostsController < ApplicationController
       format.html { redirect_to @post } 
       format.js # render posts/upvote.js.erb
     end
-    # redirect_to root_path # change this to an ajax call
   end
 
   def downvote
-    post = Post.find(params[:id])
-    post.downvote
-    redirect_to root_path
+    @post = Post.find(params[:id])
+    @post.downvote
+    respond_to do |format|
+      format.html { redirect_to @post }
+      format.js # render posts/downvote.js.erb
+    end
   end
 
   private
