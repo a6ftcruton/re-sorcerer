@@ -1,1 +1,1 @@
-$('.vote-total-<%= @post.id %>').html("<%= j render @post %>");
+$('.vote-total-<%= @post.id %>').text('<%= j "Votes: #{@post.votes.to_s}" %>');
