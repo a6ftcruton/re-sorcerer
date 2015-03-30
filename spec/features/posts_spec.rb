@@ -91,7 +91,6 @@ describe 'posts' do
         page.all('.post-container a', :text => popular.title) { click_on('.upvote') }
         visit root_path
         expect(first('.post-container a')).to have_content "last"
-        expect(first('.rank')).to have_content "1"
       end
     end
 

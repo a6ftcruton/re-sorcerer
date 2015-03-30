@@ -1,6 +1,5 @@
   <div class="post-container">
     <div class="votes">
-      <%# <p class="rank"><%= "Rank: #{@rank += 1}" %1></p> %>
       <p class="vote-total-<%= post.id %>"><%= "Votes: #{post.votes}" %></p>
       <%= form_tag upvote_post_path(post), method: :upvote, remote: true do %>
         <% hidden_field_tag :votes, post.votes %> 
