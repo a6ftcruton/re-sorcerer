@@ -78,8 +78,16 @@ describe 'posts' do
         expect(Post.find(post.id).votes).to eq -1
       end
       
-      #add ajax so that page doesn't require reload for voting
+      xit 'user cannot vote on a post he has created' do
+      end
+
+      it 'can only vote once per post' do
       # a given user can only upvote/downvote a post once
+      end
+
+      xit 'shows a user\'s past votes on each post' do
+      end
+
     end   
 
     describe 'ranking' do

@@ -12,7 +12,6 @@ FactoryGirl.define do
   factory :post do
     title "this is the title I'm giving to my link"
     url "http://jimsuttondev.com"
-    # votes 0
-    # user_id
+    user_id :user
   end
 end
