@@ -21,7 +21,10 @@ class PostsController < ApplicationController
   def update
     @post = Post.find(params[:id]) 
     @post.update(favorite: params[:favorite])
-    redirect_to root_path
+    respond_to do |format|
+      format.html { redirect_to @post }
+      format.js
+    end
   end
 
   def upvote

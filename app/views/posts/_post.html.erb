@@ -1,4 +1,5 @@
-  <div class="post-container">
+<div class="post-container">
+  <div id="post-<%= post.id %>">
     <div class="votes">
       <p class="vote-total-<%= post.id %>"><%= "Votes: #{post.votes}" %></p>
       <%= form_tag upvote_post_path(post), method: :upvote, remote: true do %>
@@ -11,19 +12,7 @@
       <%= submit_tag "v", class: "downvote" %>
       <% end %>
 
-      <%# with custom controller action %>
-      <%# <%= form_tag favorite_post_path(post), method: :favorite %1> %>
-      <%# <%= submit_tag "+", class: "favorite" %1> %>
-
-      <%# with update_attribute %>
-      <%# <%= link_to "+", post_path(post), method: :patch %1> %>
-
-      <%# with form %>
-
-      <% if post.favorite %>
-        <div class="favorite">You LOVE it</div>
-      <% else %>
-        <%= form_tag(post_path(post.id), method: :patch) %>
+      <%= form_tag post_path(post.id), method: :patch, remote: true do %>
           <%= hidden_field_tag :favorite, true %>
         <%= submit_tag "+" %>
       <% end %>
@@ -31,4 +20,5 @@
     </div>
     <%= link_to post.title, post.url, target: "_blank", class: "post" %>
   </div>
+</div>
 
