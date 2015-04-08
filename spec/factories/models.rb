@@ -13,5 +13,6 @@ FactoryGirl.define do
     title "this is the title I'm giving to my link"
     url "http://jimsuttondev.com"
     user_id :user
+    favorite false
   end
 end

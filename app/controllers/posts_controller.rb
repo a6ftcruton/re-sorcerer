@@ -19,7 +19,9 @@ class PostsController < ApplicationController
   end
 
   def update
-      # redirect_to root_path
+    @post = Post.find(params[:id]) 
+    @post.update(favorite: params[:favorite])
+    redirect_to root_path
   end
 
   def upvote

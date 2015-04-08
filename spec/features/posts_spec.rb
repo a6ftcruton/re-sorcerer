@@ -102,6 +102,18 @@ describe 'posts' do
       end
     end
 
+    describe 'favorites' do
+      it 'displays collection of favorites' do
+        post = create(:post, title: "one of your favs")
+      
+        visit root_path
+        click_on ('+')
+
+        expect(current_path).to eq root_path
+        expect(page).to have_css('.favorite') 
+      end
+    end
+
       # filtering posts by 
         # newest
         # most popular

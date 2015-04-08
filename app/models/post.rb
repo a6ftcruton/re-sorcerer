@@ -19,4 +19,9 @@ class Post < ActiveRecord::Base
   def self.sort_by_rank
     all.sort { |a, b| b.votes <=> a.votes }
   end
+
+  def toggle_favorite
+    self.favorite = true
+    self.save
+  end
 end
