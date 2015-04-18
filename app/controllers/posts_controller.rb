@@ -2,6 +2,7 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.sort_by_rank
+    @popular_tags = Tag.popular
   end
 
   def new
